@@ -37,7 +37,7 @@ export const FormEarning = () => {
             headers: {
                 'Content-Type' : "application/json"
             }, 
-            body : JSON.stringify(number)
+            body : JSON.stringify(earning)
         })
 
         window.location = "/"

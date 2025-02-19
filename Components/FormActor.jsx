@@ -37,7 +37,7 @@ export const FormActor = () => {
             headers: {
                 'Content-Type' : "application/json"
             }, 
-            body : JSON.stringify(number)
+            body : JSON.stringify(actor)
         })
 
         window.location = "/"

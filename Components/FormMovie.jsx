@@ -49,7 +49,7 @@ export const FormMovie = () => {
             headers: {
                 'Content-Type' : "application/json"
             }, 
-            body : JSON.stringify(number)
+            body : JSON.stringify(movie)
         })
 
         window.location = "/"
