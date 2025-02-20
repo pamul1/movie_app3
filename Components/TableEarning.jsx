@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 export const TableEarning = () => {
 
     const baseUrl = import.meta.env.VITE_BASE_URL
-    const endPoint = "actors"
+    const endPoint = "earnings"
     const [earning, setEarning] = useState([])
 
-    const getEarnings = async () => {
+    const getEarning = async () => {
 
         const url = `${baseUrl}${endPoint}`
         const result = await fetch(url)
@@ -21,11 +21,11 @@ export const TableEarning = () => {
             method: "DELETE"
         })
     
-        getEarnings()
+        getEarning()
     }
 
     useEffect(() => {
-        getEarnings()
+        getEarning()
     }, [])
 
     return (
@@ -37,16 +37,18 @@ export const TableEarning = () => {
                         <th>Movie_id</th>
                         <th>Country</th>
                         <th>Revenue</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         earning.map((item) => (
-                            <tr key={item.earning_id}>
+                            <tr key={item.movie_id}>
+                                <td>{item.movie_id}</td>
                                 <td>{item.country}</td>
                                 <td>{item.revenue}</td>
                                 <td> <button className='btn btn-danger' onClick={ ()=>{
-                                    handleDelete(item.earning_id)
+                                    handleDelete(item.movie_id)
                                 }  } >Delete</button></td>
                             </tr>
                         ))

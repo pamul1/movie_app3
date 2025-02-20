@@ -7,7 +7,7 @@ export const TableMovie = () => {
     const endPoint = "movies"
     const [movie, setMovie] = useState([])
 
-    const getMovies = async () => {
+    const getMovie = async () => {
 
         const url = `${baseUrl}${endPoint}`
         const result = await fetch(url)
@@ -21,11 +21,11 @@ export const TableMovie = () => {
             method: "DELETE"
         })
     
-        getMovies()
+        getMovie()
     }
 
     useEffect(() => {
-        getMovies()
+        getMovie()
     }, [])
 
     return (

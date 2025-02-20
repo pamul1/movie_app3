@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 export const FormMovie = () => {
 
-    const [movie_id, setId] = useState("")
     const [title, setTitle] = useState("")
     const [release_year, setRelease_year] = useState("")
     const [genre, setGenre] = useState ("")
@@ -11,10 +10,6 @@ export const FormMovie = () => {
 
     const baseUrl = import.meta.env.VITE_BASE_URL
     const endPoint = "movies"
-
-    const idHandler = (event) => {
-        setId(event.target.value)
-    }
 
     const titleHandler = (event) => {
         setTitle(event.target.value)
@@ -36,8 +31,7 @@ export const FormMovie = () => {
         event.preventDefault()
         const newUrl = `${baseUrl}${endPoint}`
 
-        const movie = {
-            movie_id, 
+        const movie = { 
             title,
             release_year,
             genre,
@@ -61,10 +55,7 @@ export const FormMovie = () => {
         <>
         <div className="card p-3 mb-5">
             <form onSubmit={submitHandler}>
-                <div className="mb-3">
-                    <label className="form-label">Id Movie</label>
-                    <input className="form-control" type="number" onChange={idHandler} />
-                </div>
+        
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     <input className="form-control" type="text" onChange={titleHandler} />

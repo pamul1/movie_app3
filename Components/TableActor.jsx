@@ -7,7 +7,7 @@ export const TableActor = () => {
     const endPoint = "actors"
     const [actor, setActor] = useState([])
 
-    const getActors = async () => {
+    const getActor = async () => {
 
         const url = `${baseUrl}${endPoint}`
         const result = await fetch(url)
@@ -21,11 +21,11 @@ export const TableActor = () => {
             method: "DELETE"
         })
     
-        getActors()
+        getActor()
     }
 
     useEffect(() => {
-        getActors()
+        getActor()
     }, [])
 
     return (
