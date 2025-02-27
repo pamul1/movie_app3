@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 
-export const TableMovies = () => {
+export const TableMovie = () => {
 
     const baseUrl = import.meta.env.VITE_BASE_URL
     const endPoint = "movies"
@@ -11,8 +11,16 @@ export const TableMovies = () => {
 
         const url = `${baseUrl}${endPoint}`
         const result = await fetch(url)
-        const data = await result.json()
-        setMovies(data)
+
+        if (result.ok) {
+            const data = await result.json()
+            setMovies(data)
+        } else {
+            const err = await result.json()
+            console.log("Error Fetching Movies")
+            console.log(err)
+        }
+
     }
 
     const handleDelete = async (id) => {
@@ -20,7 +28,7 @@ export const TableMovies = () => {
         const result = await fetch(url, {
             method: "DELETE"
         })
-    
+
         getMovies()
     }
 
@@ -48,9 +56,9 @@ export const TableMovies = () => {
                                 <td>{item.release_year}</td>
                                 <td>{item.genre}</td>
                                 <td>{item.duration}</td>
-                                <td> <button className='btn btn-danger' onClick={ ()=>{
+                                <td> <button className='btn btn-danger' onClick={() => {
                                     handleDelete(item.movie_id)
-                                }  } >Delete</button></td>
+                                }} >Delete</button></td>
                             </tr>
                         ))
                     }
