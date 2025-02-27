@@ -1,18 +1,18 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 
-export const TableMovie = () => {
+export const TableEarning = () => {
 
     const baseUrl = import.meta.env.VITE_BASE_URL
-    const endPoint = "movies"
-    const [movie, setMovie] = useState([])
+    const endPoint = "earnings"
+    const [earning, setEarning] = useState([])
 
-    const getMovie = async () => {
+    const getEarning = async () => {
 
         const url = `${baseUrl}${endPoint}`
         const result = await fetch(url)
         const data = await result.json()
-        setMovie(data)
+        setEarning(data)
     }
 
     const handleDelete = async (id) => {
@@ -21,11 +21,11 @@ export const TableMovie = () => {
             method: "DELETE"
         })
     
-        getMovie()
+        getEarning()
     }
 
     useEffect(() => {
-        getMovie()
+        getEarning()
     }, [])
 
     return (
@@ -34,20 +34,20 @@ export const TableMovie = () => {
             <table className='table'>
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>release_year</th>
-                        <th>genre</th>
-                        <th>duration</th>
+                        <th>Movie_id</th>
+                        <th>Country</th>
+                        <th>Revenue</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        movie.map((item) => (
+                        earning.map((item) => (
                             <tr key={item.movie_id}>
-                                <td>{item.title}</td>
-                                <td>{item.release_year}</td>
-                                <td>{item.genre}</td>
-                                <td>{item.duration}</td>
+                                <td>{item.movie_id}</td>
+                                <td>{item.country}</td>
+                                <td>{item.revenue}</td>
+                                <td>{item.delete}</td>
                                 <td> <button className='btn btn-danger' onClick={ ()=>{
                                     handleDelete(item.movie_id)
                                 }  } >Delete</button></td>
