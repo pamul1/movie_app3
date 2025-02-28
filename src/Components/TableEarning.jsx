@@ -10,7 +10,14 @@ export const TableEarning = () => {
     const getEarning = async () => {
 
         const url = `${baseUrl}${endPoint}`
-        const result = await fetch(url)
+        const token = localStorage.getItem("movie-credential");
+        const result = await fetch(url, {
+            method: "GET",
+            headers: {
+                'Authorization': token
+            }
+
+        })
         const data = await result.json()
         setEarning(data)
     }
@@ -20,7 +27,7 @@ export const TableEarning = () => {
         const result = await fetch(url, {
             method: "DELETE"
         })
-    
+
         getEarning()
     }
 
@@ -48,9 +55,9 @@ export const TableEarning = () => {
                                 <td>{item.country}</td>
                                 <td>{item.revenue}</td>
                                 <td>{item.delete}</td>
-                                <td> <button className='btn btn-danger' onClick={ ()=>{
+                                <td> <button className='btn btn-danger' onClick={() => {
                                     handleDelete(item.movie_id)
-                                }  } >Delete</button></td>
+                                }} >Delete</button></td>
                             </tr>
                         ))
                     }

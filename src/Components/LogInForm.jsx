@@ -40,7 +40,7 @@ export const LogInForm = () => {
             const token = result.token
             
             window.localStorage.setItem("movie-credential", token)
-            window.location.href="/dashboard"
+            window.location.href="/earningScreen"
             
         }else{
             console.log("Invalid Credential")
