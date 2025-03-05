@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { Menu } from './Components/Menu'
 import { Register } from './ScreenComponents/Register'
 import { EarningScreen } from './ScreenComponents/EarningScreen'
+import { ActorScreen } from './ScreenComponents/ActorScreen'
+import { MovieScreen } from './ScreenComponents/MovieScreen'
 
 function App() {
   
@@ -48,6 +50,8 @@ function App() {
           { isLogIn ? <Route path='/dashboard' element={<DashBoard/>}/> : "" } 
           { isLogIn ? <Route path='/earningScreen' element={<EarningScreen/>}/> : "" } 
           { !isLogIn ? <Route path='/register' element={<Register />} /> : ""  }
+          { isLogIn ? <Route path='/actorScreen' element={<ActorScreen/>}/> : ""}
+          { isLogIn ? <Route path='/movieScreen' element={<MovieScreen/>}/> : ""}
         </Routes>
       </BrowserRouter>
     </>

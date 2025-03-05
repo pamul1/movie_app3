@@ -5,7 +5,7 @@ export const FormMovie = () => {
 
     const [title, setTitle] = useState("")
     const [release_year, setRelease_year] = useState("")
-    const [genre, setGenre] = useState ("")
+    const [genre, setGenre] = useState("")
     const [duration, setDuration] = useState("")
 
     const baseUrl = import.meta.env.VITE_BASE_URL
@@ -31,49 +31,57 @@ export const FormMovie = () => {
         event.preventDefault()
         const newUrl = `${baseUrl}${endPoint}`
 
-        const movie = { 
+        const movie = {
             title,
             release_year,
             genre,
             duration
         }
 
+        const token = localStorage.getItem("movie-credential")
         const result = await fetch(newUrl, {
-            method : "POST", 
+            method: "POST",
             headers: {
-                'Content-Type' : "application/json"
-            }, 
-            body : JSON.stringify(movie)
+                'Content-Type': "application/json",
+                'Authorization' : token
+            },
+            body: JSON.stringify(movie)
         })
 
-        window.location = "/"
+        if (result.ok) {
+            const data = await result.json()
 
-
+            window.location = "/movieScreen"
+        }
+        else {
+            const data = await result.json()
+            console.log(data)
+        }
     }
 
     return (
         <>
-        <div className="card p-3 mb-5">
-            <form onSubmit={submitHandler}>
-        
-                <div className="mb-3">
-                    <label className="form-label">Title</label>
-                    <input className="form-control" type="text" onChange={titleHandler} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Release_year</label>
-                    <input className="form-control" type="number" onChange={release_yearHandler} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Genre</label>
-                    <input className="form-control" type="text" onChange={genreHandler} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Duration</label>
-                    <input className="form-control" type="number" onChange={durationHandler} />
-                </div>
-                <button type='submit' className='btn btn-primary w-100' >Add</button>
-            </form>
+            <div className="card p-3 mb-5">
+                <form onSubmit={submitHandler}>
+
+                    <div className="mb-3">
+                        <label className="form-label">Title</label>
+                        <input className="form-control" type="text" onChange={titleHandler} />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Release_year</label>
+                        <input className="form-control" type="number" onChange={release_yearHandler} />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Genre</label>
+                        <input className="form-control" type="text" onChange={genreHandler} />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Duration</label>
+                        <input className="form-control" type="number" onChange={durationHandler} />
+                    </div>
+                    <button type='submit' className='btn btn-primary w-100' >Add</button>
+                </form>
             </div>
         </>
     )

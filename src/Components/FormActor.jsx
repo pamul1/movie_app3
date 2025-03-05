@@ -5,7 +5,7 @@ export const FormActor = () => {
 
     const [name, setName] = useState("")
     const [date_of_birth, setDate_of_birth] = useState("")
-    const [nationality, setNationality] = useState ("")
+    const [nationality, setNationality] = useState("")
 
     const baseUrl = import.meta.env.VITE_BASE_URL
     const endPoint = "actors"
@@ -32,38 +32,46 @@ export const FormActor = () => {
             nationality
         }
 
+        const token = localStorage.getItem("movie-credential")
         const result = await fetch(newUrl, {
-            method : "POST", 
+            method: "POST",
             headers: {
-                'Content-Type' : "application/json"
-            }, 
-            body : JSON.stringify(actor)
+                'Content-Type': "application/json",
+                'Authorization': token
+            },
+            body: JSON.stringify(actor)
         })
 
-        window.location = "/"
+        if (result.ok) {
+            const data = await result.json()
 
-
+            window.location = "/actorScreen"
+        }
+        else {
+            const data = await result.json()
+            console.log(data)
+        }
     }
 
     return (
         <>
-        <div className="card p-3 mb-5">
-            <form onSubmit={submitHandler}>
-            
-                <div className="mb-3">
-                    <label className="form-label">Name</label>
-                    <input className="form-control" type="text" onChange={nameHandler} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Date_of_birth</label>
-                    <input className="form-control" type="date" onChange={date_of_birthHandler} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Nationality</label>
-                    <input className="form-control" type="text" onChange={nationalityHandler} />
-                </div>
-                <button type='submit' className='btn btn-primary w-100' >Add</button>
-            </form>
+            <div className="card p-3 mb-5">
+                <form onSubmit={submitHandler}>
+
+                    <div className="mb-3">
+                        <label className="form-label">Name</label>
+                        <input className="form-control" type="text" onChange={nameHandler} />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Date_of_birth</label>
+                        <input className="form-control" type="date" onChange={date_of_birthHandler} />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Nationality</label>
+                        <input className="form-control" type="text" onChange={nationalityHandler} />
+                    </div>
+                    <button type='submit' className='btn btn-primary w-100' >Add</button>
+                </form>
             </div>
         </>
     )

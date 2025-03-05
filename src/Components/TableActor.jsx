@@ -9,16 +9,21 @@ export const TableActor = () => {
 
     const getActor = async () => {
 
+        const token = localStorage.getItem("movie-credential")
         const url = `${baseUrl}${endPoint}`
         const result = await fetch(url)
         const data = await result.json()
         setActor(data)
     }
 
+    const token = localStorage.getItem("movie-credential")
     const handleDelete = async (id) => {
         const url = `${baseUrl}${endPoint}/${id}`
         const result = await fetch(url, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                'Authorization': token
+            }
         })
     
         getActor()

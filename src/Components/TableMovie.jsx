@@ -9,6 +9,7 @@ export const TableMovie = () => {
 
     const getMovies = async () => {
 
+        const token = localStorage.getItem("movie-credential")
         const url = `${baseUrl}${endPoint}`
         const result = await fetch(url)
 
@@ -23,10 +24,14 @@ export const TableMovie = () => {
 
     }
 
+    const token = localStorage.getItem("movie-credential")
     const handleDelete = async (id) => {
         const url = `${baseUrl}${endPoint}/${id}`
         const result = await fetch(url, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                'Authorization': token
+            }
         })
 
         getMovies()

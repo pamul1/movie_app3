@@ -22,13 +22,25 @@ export const TableEarning = () => {
         setEarning(data)
     }
 
+    const token = localStorage.getItem("movie-credential")
     const handleDelete = async (id) => {
         const url = `${baseUrl}${endPoint}/${id}`
         const result = await fetch(url, {
-            method: "DELETE"
+            method: "DELETE",
+            headers:{
+                'Authorization': token
+            }
         })
+        if (result.ok) {
+            const data = await result.json()
+            getEarning()
+        } else {
+            const data = await result.json()
+            console.log(data)
+            console.log("Something went wrong")
+        }
 
-        getEarning()
+
     }
 
     useEffect(() => {
@@ -50,13 +62,12 @@ export const TableEarning = () => {
                 <tbody>
                     {
                         earning.map((item) => (
-                            <tr key={item.movie_id}>
+                            <tr key={item.earning_id}>
                                 <td>{item.movie_id}</td>
                                 <td>{item.country}</td>
                                 <td>{item.revenue}</td>
-                                <td>{item.delete}</td>
                                 <td> <button className='btn btn-danger' onClick={() => {
-                                    handleDelete(item.movie_id)
+                                    handleDelete(item.earning_id)
                                 }} >Delete</button></td>
                             </tr>
                         ))
